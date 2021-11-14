@@ -4,13 +4,10 @@ OBJECTS_MAIN=main.o
 OBJECTS_LIB=my_mat.o
 FLAGS= -Wall -g
 
-all: libmylib.so libmylib.a progmains progmaind	
+all: libmylib.a progmains	
 progmains: $(OBJECTS_MAIN) libmylib.a 
-	$(CC) $(FLAGS) -o mains $(OBJECTS_MAIN) libmylib.a
-progmaind: $(OBJECTS_MAIN)
-	$(CC) $(FLAGS) -o maind $(OBJECTS_MAIN) ./libmylib.so
-libmylib.so: $(OBJECTS_LIB)
-	$(CC) -shared -o libmylib.so $(OBJECTS_LIB)
+	$(CC) $(FLAGS) -o connections $(OBJECTS_MAIN) libmylib.a
+
 libmylib.a: $(OBJECTS_LIB)
 	$(AR) -rcs libmylib.a $(OBJECTS_LIB)	
 mylib.o: my_mat.c my_mat.h
@@ -21,4 +18,4 @@ main.o: main.c my_mat.h
 .PHONY: clean all
 
 clean:
-	rm -f *.o *.a *.so progmains progmaind
+	rm -f *.o *.a *.so connections
